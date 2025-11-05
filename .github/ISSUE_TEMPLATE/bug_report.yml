@@ -1,6 +1,6 @@
 name: Bug Report
 description: Please describe the encountered bug and how to reproduce it
-title: "[BUG] "
+title: "[BUG] : "
 labels: ["bug"]
 assignees: []
 projects: ["FinaticORG/1"]
