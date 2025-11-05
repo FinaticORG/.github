@@ -1,0 +1,43 @@
+name: Feature Request
+description: Suggest an idea or improvement for the project
+title: "[FEAT] "
+labels: ["enhancement"]
+assignees: []
+# Optional: auto-add to project or auto-assign type
+# projects: ["my-org/my-project"]
+# type: "feature"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature!  
+        Please provide as much detail as possible.
+
+  - type: textarea
+    id: related_problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Describe the frustration or limitation you’re experiencing.
+      placeholder: "I'm always frustrated when..."
+      
+  - type: textarea
+    id: desired_solution
+    attributes:
+      label: Describe the solution you’d like
+      description: What should happen if the request is implemented?
+      placeholder: "Add a new 'Export to CSV' button in the dashboard"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      placeholder: "I can manually copy/paste, but it's error-prone."
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Add screenshots, examples, or notes.
