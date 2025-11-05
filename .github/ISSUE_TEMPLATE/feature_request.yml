@@ -4,8 +4,8 @@ title: "[FEAT] "
 labels: ["enhancement"]
 assignees: []
 # Optional: auto-add to project or auto-assign type
-# projects: ["my-org/my-project"]
-# type: "feature"
+projects: ["FinaticORG/1"]
+type: "feature"
 
 body:
   - type: markdown
