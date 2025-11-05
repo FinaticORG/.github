@@ -3,8 +3,8 @@ description: Please describe the encountered bug and how to reproduce it
 title: "[BUG] "
 labels: ["bug"]
 assignees: []
-# Optional: auto-add to project
-# projects: ["my-org/my-project"]
+projects: ["FinaticORG/1"]
+
 
 body:
   - type: markdown
