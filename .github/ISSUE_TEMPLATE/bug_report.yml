@@ -1,0 +1,72 @@
+name: Bug Report
+description: Please describe the encountered bug and how to reproduce it
+title: "[BUG] "
+labels: ["bug"]
+assignees: []
+# Optional: auto-add to project
+# projects: ["my-org/my-project"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug!  
+        Please complete all required fields below so we can fix the issue quickly.
+
+  - type: textarea
+    id: describe_bug
+    attributes:
+      label: Describe the bug
+      description: Clear and concise description of the issue.
+      placeholder: "The login button crashes the app when clicked."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Walk us through the actions that caused the issue.
+      value: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What should have happened instead?
+      placeholder: "Page loads without crashing"
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Paste or upload screenshots that show the issue (optional).
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Where did this occur?
+      value: |
+        **Desktop**
+        - OS: 
+        - Browser: 
+        - Version:
+
+        **Smartphone**
+        - Device:
+        - OS:
+        - Browser:
+        - Version:
+        
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Add logs, error text, or other context here.
