@@ -1,0 +1,60 @@
+name: Task
+description: A general task or work item that needs to be completed
+title: "[TASK] "
+labels: ["task"]
+projects: ["FinaticORG/1"]
+assignees: []
+type: "task"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please provide the details below to create a task.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary of the task
+      description: Brief one-sentence description of the task.
+      placeholder: "Implement database backup rotation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: full_description
+    attributes:
+      label: Description
+      description: Provide more detail about the task, context, and desired outcome.
+
+  - type: input
+    id: due_date
+    attributes:
+      label: Target completion date (optional)
+      placeholder: "YYYY-MM-DD"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Optional priority level
+      options:
+        - Low
+        - Medium
+        - High
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance criteria
+      description: What conditions must be met for this task to be considered complete?
+      placeholder: |
+        - Unit tests added and passing
+        - Documentation updated
+        - Deployed to production
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Add reference links, designs, logs, or any relevant info.
