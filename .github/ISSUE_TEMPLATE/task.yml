@@ -1,6 +1,6 @@
 name: Task
 description: A general task or work item that needs to be completed
-title: "[TASK] "
+title: "[TASK] : "
 labels: ["task"]
 projects: ["FinaticORG/1"]
 assignees: []
