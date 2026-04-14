@@ -1,0 +1,168 @@
+name: "Feature"
+description: "New product capability or enhancement"
+title: "[FEAT]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: feature_problem
+    attributes:
+      label: Problem / Opportunity
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+    validations:
+      required: true
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of scope
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: [P0, P1, P2, P3]
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      options:
+        - XS (< 1 day)
+        - S (1-2 days)
+        - M (3-4 days)
+        - L (5-6 days)
+        - XL (7+ days)
+    validations:
+      required: true
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimate (days)
+      placeholder: "Example: 4"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / Blockers
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Plan
+    validations:
+      required: true
+name: "Feature"
+description: "New product capability or enhancement"
+title: "[FEAT]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for new feature work and enhancements.
+
+  - type: textarea
+    id: feature_problem
+    attributes:
+      label: Problem / Opportunity
+      placeholder: What user/business need are we addressing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed solution
+      placeholder: Describe the solution and core behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      placeholder: In scope: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of scope
+      placeholder: Not included in this iteration: ...
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0
+        - P1
+        - P2
+        - P3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      options:
+        - XS (< 1 day)
+        - S (1-2 days)
+        - M (3-4 days)
+        - L (5-6 days)
+        - XL (7+ days)
+    validations:
+      required: true
+
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimate (days)
+      placeholder: "Example: 4"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / Blockers
+      placeholder: Upstream dependencies, vendor access, design sign-off, etc.
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Plan
+      placeholder: Testing and validation approach.
+    validations:
+      required: true

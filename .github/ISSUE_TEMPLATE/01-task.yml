@@ -1,0 +1,188 @@
+name: "Task"
+description: "Implementation, refactor, cleanup, or operational work item"
+title: "[TASK]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One short sentence describing the task.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Why
+      description: What problem are we solving and why now?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Explicitly list what is in scope.
+    validations:
+      required: true
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of Scope
+      description: Clarify what this issue does not include.
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: [P0, P1, P2, P3]
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      options:
+        - XS (< 1 day)
+        - S (1-2 days)
+        - M (3-4 days)
+        - L (5-6 days)
+        - XL (7+ days)
+    validations:
+      required: true
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimate (days)
+      placeholder: "Example: 3"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / Blockers
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Plan
+    validations:
+      required: true
+name: "Task"
+description: "Implementation, refactor, cleanup, or operational work item"
+title: "[TASK]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for scoped engineering tasks. Keep it concrete and execution-ready.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One short sentence describing the task.
+      placeholder: Implement X to achieve Y.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Why
+      description: What problem are we solving and why now?
+      placeholder: Current behavior causes...
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is explicitly in scope? Include key files/services/components.
+      placeholder: In scope: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of Scope
+      description: Clarify what this issue does not include.
+      placeholder: Out of scope: ...
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Project priority level.
+      options:
+        - P0
+        - P1
+        - P2
+        - P3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      description: Use standard sizing.
+      options:
+        - XS (< 1 day)
+        - S (1-2 days)
+        - M (3-4 days)
+        - L (5-6 days)
+        - XL (7+ days)
+    validations:
+      required: true
+
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimate (days)
+      description: Numeric estimate used for project field.
+      placeholder: "Example: 3"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Provide checklist-style completion criteria.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / Blockers
+      description: Link related issues and external blockers.
+      placeholder: Depends on #123, vendor access, migration rollout...
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Plan
+      description: How will we verify this is complete and correct?
+      placeholder: Unit tests, integration tests, manual scenario, logs/metrics checks...
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any links, screenshots, or notes.

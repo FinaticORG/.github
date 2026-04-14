@@ -1,0 +1,171 @@
+name: "Bug"
+description: "Unexpected behavior, regression, or production issue"
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Describe the bug
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: [P0, P1, P2, P3]
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      options:
+        - XS (< 1 day)
+        - S (1-2 days)
+        - M (3-4 days)
+        - L (5-6 days)
+        - XL (7+ days)
+    validations:
+      required: true
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimate (days)
+      placeholder: "Example: 2"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] Bug no longer reproduces in specified scenario
+        - [ ] Regression test added where appropriate
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / Blockers
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Plan
+    validations:
+      required: true
+name: "Bug"
+description: "Unexpected behavior, regression, or production issue"
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for defects and regressions. Include clear repro and expected behavior.
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Describe the bug
+      placeholder: What is happening? Include impact.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      placeholder: What should happen instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0
+        - P1
+        - P2
+        - P3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      options:
+        - XS (< 1 day)
+        - S (1-2 days)
+        - M (3-4 days)
+        - L (5-6 days)
+        - XL (7+ days)
+    validations:
+      required: true
+
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimate (days)
+      placeholder: "Example: 2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] Bug no longer reproduces in specified scenario
+        - [ ] Regression test added where appropriate
+    validations:
+      required: true
+
+  - type: textarea
+    id: root_cause_notes
+    attributes:
+      label: Suspected root cause (optional)
+      placeholder: If known, describe likely cause and relevant code paths.
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / Blockers
+      placeholder: Related issues, schema changes, vendor blockers...
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Plan
+      placeholder: Tests, manual repro validation, logs/metrics checks.
+    validations:
+      required: true
