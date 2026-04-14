@@ -14,7 +14,6 @@ Finatic helps developers build brokerage-powered products with a unified SDK-fir
 - [`FinaticServerSDK-Node`](https://github.com/FinaticORG/FinaticServerSDK-Node) - Node server SDK for backend workflows.
 - [`FinaticServerSDK-Python`](https://github.com/FinaticORG/FinaticServerSDK-Python) - Python server SDK for backend and data workflows.
 - [`FinaticDemoApps`](https://github.com/FinaticORG/FinaticDemoApps) - Runnable demo apps across client/node/python tracks.
-- [`finaticAPI`](https://github.com/FinaticORG/finaticAPI) - API boundary and orchestration layer.
 
 ## Using Finatic with AI
 
