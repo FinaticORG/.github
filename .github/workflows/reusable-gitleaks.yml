@@ -52,6 +52,8 @@ jobs:
             '''(^|/)docs(/|$)''',
             '''(^|/)(content|documentation)(/|$)''',
             '''env-variables-model\.ts$''',
+            '''(^|/)seeds(/|$)''',
+            '''install_test_extensions\.sql$''',
             '''\.pyc$''',
             '''package-lock\.json$''',
             '''yarn\.lock$''',
