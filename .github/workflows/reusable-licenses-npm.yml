@@ -40,7 +40,12 @@ jobs:
             corepack prepare pnpm@latest --activate
             pnpm install --frozen-lockfile
           elif [ -f yarn.lock ]; then
-            yarn install --immutable
+            # Yarn classic uses --frozen-lockfile; Yarn Berry uses --immutable.
+            if yarn --version | grep -qE '^1\.'; then
+              yarn install --frozen-lockfile
+            else
+              yarn install --immutable
+            fi
           elif [ -f package-lock.json ]; then
             npm ci
           else

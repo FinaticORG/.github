@@ -43,12 +43,13 @@ jobs:
           useDefault = true
 
           [allowlist]
-          description = "Build artifacts, local env files, tests, and common false positives"
+          description = "Build artifacts, local env files, tests, docs examples, and known CI/fixture false positives"
           paths = [
             '''gitleaks-ci\.toml''',
             '''(^|/)(node_modules|build|dist|\.next|\.vercel|__pycache__|\.venv|venv|\.turbo|\.cache|coverage)(/|$)''',
             '''(^|/)\.env(\..+)?$''',
             '''(^|/)tests?(/|$)''',
+            '''(^|/)docs(/|$)''',
             '''\.pyc$''',
             '''package-lock\.json$''',
             '''yarn\.lock$''',
@@ -67,6 +68,17 @@ jobs:
             '''os\.environ''',
             '''getenv\(['\"]''',
             '''process\.env''',
+            '''(?i)test-secret-key-at-least-32-characters-long''',
+            '''(?i)my_secret_token''',
+            '''(?i)refresh_token_abc123''',
+            '''(?i)device_token_xyz789''',
+            '''(?i)trading212_(live|paper|unknown)''',
+            '''ttl_seconds\s*=\s*\d+''',
+            '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.\.\.''',
+            # Known non-production CI Fernet test key (workflows / unit fixtures)
+            '''vp8WLd6nIY-0igRsOWoP6YqtvWMw5xYtCUXja3J_Cfg=''',
+            # Public Robinhood OAuth client id embedded in their apps
+            '''c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS''',
           ]
           EOF
 
