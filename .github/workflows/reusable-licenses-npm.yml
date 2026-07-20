@@ -39,6 +39,9 @@ jobs:
           if [ -f pnpm-lock.yaml ]; then
             corepack prepare pnpm@latest --activate
             pnpm install --frozen-lockfile
+          elif [ -f package-lock.json ]; then
+            # Prefer npm when package-lock exists (repos often keep a stale yarn.lock too).
+            npm ci
           elif [ -f yarn.lock ]; then
             # Yarn classic uses --frozen-lockfile; Yarn Berry uses --immutable.
             if yarn --version | grep -qE '^1\.'; then
@@ -46,8 +49,6 @@ jobs:
             else
               yarn install --immutable
             fi
-          elif [ -f package-lock.json ]; then
-            npm ci
           else
             npm install
           fi
