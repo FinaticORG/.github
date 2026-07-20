@@ -10,7 +10,7 @@ on:
       strict:
         type: boolean
         required: false
-        default: false
+        default: true
 
 permissions:
   contents: read
@@ -30,10 +30,22 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install dependencies
         continue-on-error: ${{ !inputs.strict }}
         run: |
-          if [ -f package-lock.json ]; then npm ci; elif [ -f yarn.lock ]; then yarn install --frozen-lockfile; elif [ -f pnpm-lock.yaml ]; then corepack enable && pnpm install --frozen-lockfile; else npm install; fi
+          if [ -f pnpm-lock.yaml ]; then
+            corepack prepare pnpm@latest --activate
+            pnpm install --frozen-lockfile
+          elif [ -f yarn.lock ]; then
+            yarn install --immutable
+          elif [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: License summary
         run: npx --yes license-checker --production --summary
