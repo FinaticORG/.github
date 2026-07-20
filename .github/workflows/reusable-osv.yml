@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       strict:
-        description: Fail when CRITICAL vulnerabilities are found
+        description: Fail when CRITICAL or HIGH vulnerabilities are found
         type: boolean
         required: false
         default: true
@@ -39,6 +39,7 @@ jobs:
           if [ ! -f osv-results.json ]; then
             echo "No OSV report produced"
             echo "0" > osv-critical-count.txt
+            echo "0" > osv-high-count.txt
             exit 0
           fi
           python3 - <<'PY'
@@ -54,7 +55,7 @@ jobs:
                           critical += 1
                       elif severity == "HIGH":
                           high += 1
-                      elif severity == "MEDIUM":
+                      elif severity in {"MEDIUM", "MODERATE"}:
                           medium += 1
                       elif severity == "LOW":
                           low += 1
@@ -64,6 +65,7 @@ jobs:
           print(summary)
           Path("osv-summary.txt").write_text(summary + "\n")
           Path("osv-critical-count.txt").write_text(str(critical))
+          Path("osv-high-count.txt").write_text(str(high))
           PY
 
       - name: Upload OSV report
@@ -76,15 +78,20 @@ jobs:
             osv-summary.txt
           if-no-files-found: ignore
 
-      - name: Fail on CRITICAL findings
+      - name: Fail on CRITICAL or HIGH findings
         if: inputs.strict
         run: |
           critical_count=0
+          high_count=0
           if [ -f osv-critical-count.txt ]; then
             critical_count=$(cat osv-critical-count.txt)
           fi
+          if [ -f osv-high-count.txt ]; then
+            high_count=$(cat osv-high-count.txt)
+          fi
           echo "Critical vulnerability count: ${critical_count}"
-          if [ "${critical_count}" -gt 0 ]; then
-            echo "::error::OSV found ${critical_count} CRITICAL vulnerabilities"
+          echo "High vulnerability count: ${high_count}"
+          if [ "${critical_count}" -gt 0 ] || [ "${high_count}" -gt 0 ]; then
+            echo "::error::OSV found ${critical_count} CRITICAL and ${high_count} HIGH vulnerabilities"
             exit 1
           fi
