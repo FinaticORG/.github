@@ -1,20 +1,30 @@
-# Finatic Organization Defaults (`.github`)
+# FinaticORG shared GitHub config
 
-Central organization-level defaults for Finatic repositories.
+Canonical Dependabot templates and reusable security workflows for FinaticORG repositories.
 
-This repository is the shared home for:
+## Dependabot templates
 
-- org profile content (`profile/README.md`)
-- default issue templates/forms
-- shared contribution expectations used across repositories
+Copy from `dependabot-templates/` into each repo’s `.github/dependabot.yml`:
 
-## Documentation
+| Template | Repos |
+| --- | --- |
+| `npm.yml` | FinaticWeb, FinaticConnect, FinaticClientSDK, FinaticServerSDK-Node, FinaticTester |
+| `pip.yml` | FinaticAPI, FinaticCore, FinaticBackground, FinaticServerSDK-Python, FinaticMTConnector |
+| `finatic-orchestrator.yml` | Finatic |
+| `demoapps-multi.yml` | FinaticDemoApps |
+| `terraform-infra.yml` | Infra |
+| `actions-only.yml` | Database, `.github` |
 
-- Public docs: [https://finatic.dev/docs](https://finatic.dev/docs)
-- API reference: [https://finatic.dev/docs/api-reference](https://finatic.dev/docs/api-reference)
-- LLM context doc: [https://finatic.dev/llms.txt](https://finatic.dev/llms.txt)
+All templates: weekly schedule, `target-branch: develop`, assignees/reviewers `founders`, grouped minor/patch.
 
-## Template Ownership
+## Reusable security workflows
 
-Organization-level issue templates in this repository are the default source of truth.
-Repositories should only keep local templates when they need repo-specific exceptions.
+Call from each repo’s `.github/workflows/security.yml` (see `security-templates/`):
+
+```yaml
+jobs:
+  actionlint:
+    uses: FinaticORG/.github/.github/workflows/reusable-actionlint.yml@main
+```
+
+Workflows pin `@main`. Promote changes: `develop` → `staging` → `main`.

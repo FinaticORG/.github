@@ -1,0 +1,21 @@
+name: Security
+
+on:
+  pull_request:
+  push:
+    branches: [develop, staging, main]
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  actionlint:
+    uses: FinaticORG/.github/.github/workflows/reusable-actionlint.yml@main
+
+  gitleaks:
+    uses: FinaticORG/.github/.github/workflows/reusable-gitleaks.yml@main
+    secrets: inherit

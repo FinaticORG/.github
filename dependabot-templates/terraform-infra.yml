@@ -1,0 +1,49 @@
+version: 2
+updates:
+  - package-ecosystem: terraform
+    directory: /
+    schedule:
+      interval: weekly
+    target-branch: develop
+    open-pull-requests-limit: 5
+    reviewers:
+      - founders
+    assignees:
+      - founders
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      terraform-providers:
+        patterns:
+          - "*"
+
+  - package-ecosystem: pip
+    directory: /scripts
+    schedule:
+      interval: weekly
+    target-branch: develop
+    reviewers:
+      - founders
+    assignees:
+      - founders
+    commit-message:
+      prefix: chore
+      include: scope
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    target-branch: develop
+    reviewers:
+      - founders
+    assignees:
+      - founders
+    commit-message:
+      prefix: ci
+      include: scope
+    groups:
+      ci-dependencies:
+        patterns:
+          - "*"
