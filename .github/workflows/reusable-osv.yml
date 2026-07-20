@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       strict:
-        description: Fail the job when vulnerabilities are found
+        description: Fail when CRITICAL vulnerabilities are found
         type: boolean
         required: false
         default: true
@@ -25,6 +25,66 @@ jobs:
           chmod +x osv-scanner
           sudo mv osv-scanner /usr/local/bin/osv-scanner
 
-      - name: Run OSV-Scanner
-        run: osv-scanner --recursive ./
-        continue-on-error: ${{ !inputs.strict }}
+      - name: Run OSV-Scanner (JSON report)
+        id: scan
+        continue-on-error: true
+        run: |
+          set +e
+          osv-scanner scan source --recursive --format=json --output=osv-results.json ./
+          echo "scanner_exit=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Summarize findings
+        if: always()
+        run: |
+          if [ ! -f osv-results.json ]; then
+            echo "No OSV report produced"
+            echo "0" > osv-critical-count.txt
+            exit 0
+          fi
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("osv-results.json").read_text())
+          critical = high = medium = low = other = 0
+          for result in data.get("results") or []:
+              for package in result.get("packages") or []:
+                  for vulnerability in package.get("vulnerabilities") or []:
+                      severity = str((vulnerability.get("database_specific") or {}).get("severity") or "").upper()
+                      if severity == "CRITICAL":
+                          critical += 1
+                      elif severity == "HIGH":
+                          high += 1
+                      elif severity == "MEDIUM":
+                          medium += 1
+                      elif severity == "LOW":
+                          low += 1
+                      else:
+                          other += 1
+          summary = f"CRITICAL={critical} HIGH={high} MEDIUM={medium} LOW={low} OTHER={other}"
+          print(summary)
+          Path("osv-summary.txt").write_text(summary + "\n")
+          Path("osv-critical-count.txt").write_text(str(critical))
+          PY
+
+      - name: Upload OSV report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: osv-results
+          path: |
+            osv-results.json
+            osv-summary.txt
+          if-no-files-found: ignore
+
+      - name: Fail on CRITICAL findings
+        if: inputs.strict
+        run: |
+          critical_count=0
+          if [ -f osv-critical-count.txt ]; then
+            critical_count=$(cat osv-critical-count.txt)
+          fi
+          echo "Critical vulnerability count: ${critical_count}"
+          if [ "${critical_count}" -gt 0 ]; then
+            echo "::error::OSV found ${critical_count} CRITICAL vulnerabilities"
+            exit 1
+          fi

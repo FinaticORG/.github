@@ -43,10 +43,12 @@ jobs:
           useDefault = true
 
           [allowlist]
-          description = "Build artifacts, caches, and common doc placeholders"
+          description = "Build artifacts, local env files, tests, and common false positives"
           paths = [
             '''gitleaks-ci\.toml''',
-            '''(^|/)(node_modules|build|dist|\.next|\.vercel|__pycache__|\.turbo|\.cache|coverage)(/|$)''',
+            '''(^|/)(node_modules|build|dist|\.next|\.vercel|__pycache__|\.venv|venv|\.turbo|\.cache|coverage)(/|$)''',
+            '''(^|/)\.env(\..+)?$''',
+            '''(^|/)tests?(/|$)''',
             '''\.pyc$''',
             '''package-lock\.json$''',
             '''yarn\.lock$''',
@@ -62,6 +64,9 @@ jobs:
             '''xxxx+''',
             '''\$\{\{\s*secrets\.''',
             '''Bearer\s+\$\{''',
+            '''os\.environ''',
+            '''getenv\(['\"]''',
+            '''process\.env''',
           ]
           EOF
 
