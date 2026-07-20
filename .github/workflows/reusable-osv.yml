@@ -7,7 +7,7 @@ on:
         description: Fail the job when vulnerabilities are found
         type: boolean
         required: false
-        default: false
+        default: true
 
 permissions:
   contents: read
