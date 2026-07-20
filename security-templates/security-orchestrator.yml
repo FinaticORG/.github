@@ -17,29 +17,29 @@ jobs:
   actionlint:
     uses: FinaticORG/.github/.github/workflows/reusable-actionlint.yml@main
     with:
-      strict: false
+      strict: true
 
   gitleaks:
     uses: FinaticORG/.github/.github/workflows/reusable-gitleaks.yml@main
     with:
-      strict: false
+      strict: true
       scan-mode: no-git
 
   osv:
     uses: FinaticORG/.github/.github/workflows/reusable-osv.yml@main
     with:
-      strict: false
+      strict: true
 
   licenses-pip:
     uses: FinaticORG/.github/.github/workflows/reusable-licenses-pip.yml@main
     with:
-      strict: false
+      strict: true
 
   licenses-npm:
     uses: FinaticORG/.github/.github/workflows/reusable-licenses-npm.yml@main
     with:
       working-directory: scripts/openapi/generators
-      strict: false
+      strict: true
 
   codeql:
     uses: FinaticORG/.github/.github/workflows/reusable-codeql.yml@main

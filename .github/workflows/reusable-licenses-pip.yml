@@ -10,7 +10,7 @@ on:
       strict:
         type: boolean
         required: false
-        default: false
+        default: true
 
 permissions:
   contents: read

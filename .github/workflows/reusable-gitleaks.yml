@@ -4,12 +4,12 @@ on:
   workflow_call:
     inputs:
       strict:
-        description: Fail the job when leaks are found (report-only when false)
+        description: Fail the job when leaks are found
         type: boolean
         required: false
-        default: false
+        default: true
       scan-mode:
-        description: "no-git (working tree) or git (full history)"
+        description: "no-git (working tree / checkout) or git (full history)"
         type: string
         required: false
         default: no-git
@@ -24,22 +24,53 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: ${{ inputs.scan-mode == 'git' && 0 || 1 }}
+
+      - name: Install Gitleaks
+        env:
+          GITLEAKS_VERSION: "8.28.0"
+        run: |
+          curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Write scan config
+        run: |
+          cat > .gitleaks-ci.toml <<'EOF'
+          title = "FinaticORG CI gitleaks config"
+
+          [extend]
+          useDefault = true
+
+          [allowlist]
+          description = "Build artifacts, caches, and common doc placeholders"
+          paths = [
+            '''gitleaks-ci\.toml''',
+            '''(^|/)(node_modules|build|dist|\.next|\.vercel|__pycache__|\.turbo|\.cache|coverage)(/|$)''',
+            '''\.pyc$''',
+            '''package-lock\.json$''',
+            '''yarn\.lock$''',
+            '''pnpm-lock\.yaml$''',
+            '''uv\.lock$''',
+          ]
+          regexTarget = "match"
+          regexes = [
+            '''(?i)example[_-]?token''',
+            '''(?i)your[_-]?api[_-]?key''',
+            '''(?i)changeme''',
+            '''(?i)placeholder''',
+            '''xxxx+''',
+            '''\$\{\{\s*secrets\.''',
+            '''Bearer\s+\$\{''',
+          ]
+          EOF
 
       - name: Run Gitleaks (working tree)
         if: inputs.scan-mode == 'no-git'
         continue-on-error: ${{ !inputs.strict }}
-        run: |
-          docker run --rm \
-            -v "$PWD:/path" \
-            zricethezav/gitleaks:latest \
-            detect --source="/path" --no-git --verbose --redact
+        run: gitleaks detect --source="." --no-git --redact --verbose --config=.gitleaks-ci.toml
 
       - name: Run Gitleaks (git history)
         if: inputs.scan-mode == 'git'
         continue-on-error: ${{ !inputs.strict }}
-        run: |
-          docker run --rm \
-            -v "$PWD:/path" \
-            zricethezav/gitleaks:latest \
-            detect --source="/path" --verbose --redact
+        run: gitleaks detect --source="." --redact --verbose --config=.gitleaks-ci.toml
