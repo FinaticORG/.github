@@ -50,6 +50,8 @@ jobs:
             '''(^|/)\.env(\..+)?$''',
             '''(^|/)tests?(/|$)''',
             '''(^|/)docs(/|$)''',
+            '''(^|/)(content|documentation)(/|$)''',
+            '''env-variables-model\.ts$''',
             '''\.pyc$''',
             '''package-lock\.json$''',
             '''yarn\.lock$''',
