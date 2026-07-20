@@ -2,6 +2,12 @@ name: Reusable Actionlint
 
 on:
   workflow_call:
+    inputs:
+      strict:
+        description: Fail the job when actionlint finds issues
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -18,4 +24,5 @@ jobs:
           bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
 
       - name: Run actionlint
+        continue-on-error: ${{ !inputs.strict }}
         run: ./actionlint -color

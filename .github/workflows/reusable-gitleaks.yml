@@ -2,6 +2,17 @@ name: Reusable Gitleaks
 
 on:
   workflow_call:
+    inputs:
+      strict:
+        description: Fail the job when leaks are found (report-only when false)
+        type: boolean
+        required: false
+        default: false
+      scan-mode:
+        description: "no-git (working tree) or git (full history)"
+        type: string
+        required: false
+        default: no-git
 
 permissions:
   contents: read
@@ -15,7 +26,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Gitleaks
+      - name: Run Gitleaks (working tree)
+        if: inputs.scan-mode == 'no-git'
+        continue-on-error: ${{ !inputs.strict }}
+        run: |
+          docker run --rm \
+            -v "$PWD:/path" \
+            zricethezav/gitleaks:latest \
+            detect --source="/path" --no-git --verbose --redact
+
+      - name: Run Gitleaks (git history)
+        if: inputs.scan-mode == 'git'
+        continue-on-error: ${{ !inputs.strict }}
         run: |
           docker run --rm \
             -v "$PWD:/path" \

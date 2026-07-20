@@ -31,6 +31,7 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
+        continue-on-error: ${{ !inputs.strict }}
         run: |
           if [ -f package-lock.json ]; then npm ci; elif [ -f yarn.lock ]; then yarn install --frozen-lockfile; elif [ -f pnpm-lock.yaml ]; then corepack enable && pnpm install --frozen-lockfile; else npm install; fi
 

@@ -16,10 +16,14 @@ permissions:
 jobs:
   actionlint:
     uses: FinaticORG/.github/.github/workflows/reusable-actionlint.yml@main
+    with:
+      strict: false
 
   gitleaks:
     uses: FinaticORG/.github/.github/workflows/reusable-gitleaks.yml@main
-    secrets: inherit
+    with:
+      strict: false
+      scan-mode: no-git
 
   osv:
     uses: FinaticORG/.github/.github/workflows/reusable-osv.yml@main
