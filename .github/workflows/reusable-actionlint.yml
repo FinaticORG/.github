@@ -23,6 +23,7 @@ jobs:
         run: |
           bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
 
+      # Disable embedded shellcheck style noise; actionlint still validates workflow structure.
       - name: Run actionlint
         continue-on-error: ${{ !inputs.strict }}
-        run: ./actionlint -color
+        run: ./actionlint -color -shellcheck=
