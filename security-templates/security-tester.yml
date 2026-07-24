@@ -2,8 +2,9 @@ name: Security
 
 # Cost controls:
 # - PR: actionlint + gitleaks only (cheap)
-# - schedule / workflow_dispatch / push to main: + osv, licenses, codeql
+# - schedule / workflow_dispatch / push to main: + osv, codeql
 # - skip dependabot; cancel superseded runs on the same ref
+# Note: FinaticTester has no licenses job (no production lockfile install path)
 
 on:
   pull_request:
@@ -46,16 +47,6 @@ jobs:
     with:
       strict: true
 
-  licenses:
-    if: >-
-      github.actor != 'dependabot[bot]' &&
-      (github.event_name == 'schedule' ||
-       github.event_name == 'workflow_dispatch' ||
-       github.event_name == 'push')
-    uses: FinaticORG/.github/.github/workflows/reusable-licenses-pip.yml@main
-    with:
-      strict: true
-
   codeql:
     if: >-
       github.actor != 'dependabot[bot]' &&
@@ -64,4 +55,4 @@ jobs:
        github.event_name == 'push')
     uses: FinaticORG/.github/.github/workflows/reusable-codeql.yml@main
     with:
-      languages: '["python"]'
+      languages: '["javascript-typescript"]'
