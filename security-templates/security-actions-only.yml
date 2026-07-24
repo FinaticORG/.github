@@ -1,12 +1,21 @@
 name: Security
 
+# Cost controls:
+# - PR / main / schedule: actionlint + gitleaks only
+# - skip dependabot; cancel superseded runs on the same ref
+# - no push to develop/staging (avoids merge double-runs)
+
 on:
   pull_request:
   push:
-    branches: [develop, staging, main]
+    branches: [main]
   schedule:
     - cron: "0 6 * * 1"
   workflow_dispatch:
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -14,11 +23,13 @@ permissions:
 
 jobs:
   actionlint:
+    if: github.actor != 'dependabot[bot]'
     uses: FinaticORG/.github/.github/workflows/reusable-actionlint.yml@main
     with:
       strict: true
 
   gitleaks:
+    if: github.actor != 'dependabot[bot]'
     uses: FinaticORG/.github/.github/workflows/reusable-gitleaks.yml@main
     with:
       strict: true
