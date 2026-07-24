@@ -34,7 +34,7 @@ Copy from `security-templates/` into each repo’s `.github/workflows/security.y
 **Trigger / job policy (all templates):**
 
 - **PR:** `actionlint` + `gitleaks` only
-- **Weekly schedule / `workflow_dispatch` / push to `main`:** also `osv`, licenses, CodeQL (where configured)
+- **Weekly schedule / `workflow_dispatch` only:** also `osv`, licenses, CodeQL (where configured)
 - **No** push triggers on `develop` / `staging` (avoids merge double-runs)
 - Skip `dependabot[bot]`; `concurrency` cancels superseded runs on the same ref
 
