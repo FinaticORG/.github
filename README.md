@@ -36,7 +36,9 @@ Copy from `security-templates/` into each repo’s `.github/workflows/security.y
 - **PR:** `actionlint` + `gitleaks` only
 - **Weekly schedule / `workflow_dispatch` only:** also `osv`, licenses, CodeQL (where configured)
 - **No** push triggers on `develop` / `staging` (avoids merge double-runs)
-- Skip `dependabot[bot]`; `concurrency` cancels superseded runs on the same ref
+- PR cheap jobs (`actionlint`, `gitleaks`) run for Dependabot; heavy jobs still skip it
+- Product CI uses a no-op path for Dependabot so required checks stay green
+- `concurrency` cancels superseded runs on the same ref
 
 Reusable workflows pin `@main`. Promote changes: `develop` → `staging` → `main`.
 
